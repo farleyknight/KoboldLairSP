@@ -41,7 +41,7 @@ int main() {
   // Deletion is a two step process
   // This is to support DB transactions
   // - First mark the slot as deleted
-  page.mark_slot_as_delete(slot_id);
+  page.mark_slot_as_deleted(slot_id);
   // The count is decremented
   fmt::print("The page now has {} elements\n", page.slot_count());
   // But we still have the same available space
