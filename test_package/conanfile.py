@@ -2,10 +2,12 @@ import os
 
 from conans import ConanFile, CMake, tools
 
+VERSION = "0.1"
 
 class KoboldLairSPTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake"
+    generators = "cmake", "cmake_find_package", "cmake_paths"
+    requires = f"KoboldLairSP/{VERSION}", "fmt/8.0.1", "gtest/cci.20210126"
 
     def build(self):
         cmake = CMake(self)
@@ -23,3 +25,12 @@ class KoboldLairSPTestConan(ConanFile):
         if not tools.cross_building(self):
             os.chdir("bin")
             self.run(".%sexample" % os.sep)
+
+    def package_info(self):
+        self.cpp_info.libs = [f"KoboldLairSP/{VERSION}"]
+
+    def validate(self):
+        tools.check_min_cppstd(self, "17")
+
+    def package_info(self):
+        self.cpp_info.cxxflags = ["-std=c++17"]
