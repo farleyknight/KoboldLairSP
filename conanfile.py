@@ -1,8 +1,10 @@
 from conans import tools, ConanFile, CMake
 
+VERSION = "0.2"
+
 class KoboldLairSPConan(ConanFile):
     name = "KoboldLairSP"
-    version = "0.1"
+    version = VERSION
     license = "MIT"
     author = "Farley Knight farleyknight@gmail.com"
     url = "http://github.com/farleyknight/KoboldLairSP"

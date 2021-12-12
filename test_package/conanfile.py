@@ -2,7 +2,7 @@ import os
 
 from conans import ConanFile, CMake, tools
 
-VERSION = "0.1"
+VERSION = "0.2"
 
 class KoboldLairSPTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
