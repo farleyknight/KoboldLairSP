@@ -3,5 +3,3 @@ project(KoboldLairSP CXX)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
-
-add_library(KoboldLairSP KoboldLairSP.cpp)
