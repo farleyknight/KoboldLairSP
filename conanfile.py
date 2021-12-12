@@ -1,5 +1,4 @@
-from conans import ConanFile, CMake
-
+from conans import tools, ConanFile, CMake
 
 class KoboldLairSPConan(ConanFile):
     name = "KoboldLairSP"
@@ -7,13 +6,23 @@ class KoboldLairSPConan(ConanFile):
     license = "MIT"
     author = "Farley Knight farleyknight@gmail.com"
     url = "http://github.com/farleyknight/KoboldLairSP"
-    description = "Store variable-length records in a data buffer."
+    description = "SP = Slotted Page -- Store variable-length records in a data buffer."
     topics = ("c++", "slotted-page", "byte-buffer")
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
     generators = "cmake"
     exports_sources = "src/*"
+    requires = "MagicScrollBB/0.2.4"
+
+    settings = {
+        "os": None,
+        "compiler": {"gcc": {"cppstd": ['17', '20']},
+                     "apple-clang": {"cppstd": ['17', '20']},
+                     "Visual Studio": {"cppstd": ['17', '20']}},
+        "arch": None,
+        "build_type": None
+    }
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -37,5 +46,8 @@ class KoboldLairSPConan(ConanFile):
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
 
+    def validate(self):
+        tools.check_min_cppstd(self, "17")
+
     def package_info(self):
-        self.cpp_info.libs = ["KoboldLairSP"]
+        self.cpp_info.cxxflags = ["-std=c++17"]
